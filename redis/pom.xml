@@ -4,14 +4,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>internet_behavior_project</artifactId>
-        <groupId>com.anryg.bigdata</groupId>
-        <version>1.0-SNAPSHOT</version>
+        <groupId>com.hui.bigdata</groupId>
+        <version>1.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.anryg.bigdata</groupId>
+    <groupId>com.hui.bigdata</groupId>
     <artifactId>redis</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
     <packaging>jar</packaging>
     <name>redis</name>
     <!-- FIXME change it to the project's website -->
