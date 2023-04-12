@@ -10,9 +10,8 @@
     <version>1.0</version>
     <modules>
         <module>spark-coding</module>
-        <module>flink-coding</module>
+        <module>flink-coding</module> 
         <module>redis</module>
     </modules>
-
 
 </project>

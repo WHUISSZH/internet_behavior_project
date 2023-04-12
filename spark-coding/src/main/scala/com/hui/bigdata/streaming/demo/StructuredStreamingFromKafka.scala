@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSON
 import org.apache.spark.SparkConf
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.streaming.OutputMode
-;
 
 /**
   * @DESC:  从kafka读取上网上网数据
@@ -19,12 +18,12 @@ object StructuredStreamingFromKafka {
 
         val rawDF = spark.readStream //获取数据源
             .format("kafka") //确定数据源的来源格式
-            .option("kafka.bootstrap.servers", "192.168.211.108:6667") //指定kafka集群的地址，理论上写一个broker就可以了
+            .option("kafka.bootstrap.servers", "192.168.19.137:6667") //指定kafka集群的地址，理论上写一个broker就可以了
             .option("subscribe","test")  //指定topic
             //.option("group.id","test9999") /**不再用该方式来绑定offset，而是每个程序有个唯一的id，该id跟checkpointLocation绑定，虽然group.id属性在运行中依然保留，但是不再跟offset绑定*/
             .option("failOnDataLoss",false)  //如果读取数据源时，发现数据突然缺失，比如被删，则是否马上抛出异常
             .option("fetchOffset.numRetries",3)  //获取消息的偏移量时，最多进行的重试次数
-            .option("maxOffsetsPerTrigger",10)/**用于限流，限定每次读取数据的最大条数，不指定则是as fast as possible,但是每次只取最新的数据，不取旧的*/
+            .option("maxOffsetsPerTrigger",10) //用于限流，限定每次读取数据的最大条数，不指定则是as fast as possible,但是每次只取最新的数据，不取旧的
             .option("startingOffsets","latest")  //第一次消费时，读取kafka数据的位置
                 //.option("startingOffsets","""{"test":{"0":-2,"1":-2,"2":-2,"3":-2}}""")
             .load()
@@ -50,7 +49,7 @@ object StructuredStreamingFromKafka {
                 .option("format", "append") /**会在同一个目录下追加新文件，否则只能在特定目录下写一个批次的的数据后就报错*/
                 //.option("header", "true") /**添加文件的scheme*/
                 // .format("csv").option("path","hdfs://192.168.211.106:8020/DATA/qianxin/3/")
-            .option("checkpointLocation","hdfs://192.168.211.106:8020/tmp/offset/test/kafka_datasource-08") /**用来保存offset，用该目录来绑定对应的offset，如果该目录发生改变则程序运行的id会发生变化，类比group.id的变化*/
+            .option("checkpointLocation","hdfs://192.168.19.137:8020/tmp/offset/test/kafka_datasource-08") /**用来保存offset，用该目录来绑定对应的offset，如果该目录发生改变则程序运行的id会发生变化，类比group.id的变化*/
             .start()
 
         query.awaitTermination()
